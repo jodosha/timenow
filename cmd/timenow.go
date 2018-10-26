@@ -8,7 +8,10 @@ import (
 )
 
 func main() {
-	now, err := timenow.Execute()
+	t := timenow.New()
+	// t := &timenow.Timenow{HttpClient: http.DefaultClient}
+
+	now, err := t.Execute()
 	if err != nil {
 		fmt.Fprintln(os.Stderr, err)
 		os.Exit(1)

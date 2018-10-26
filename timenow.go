@@ -14,12 +14,24 @@ const (
 	timeFormat  string = "2006-01-02T15:04Z"
 )
 
+type Timenow struct {
+	HttpClient *http.Client
+}
+
 type timeResponse struct {
 	Now string `json:"currentDateTime,omitempty"`
 }
 
-func Execute() (string, error) {
-	resp, err := http.Get(apiEndpoint)
+func New() *Timenow {
+	httpClient := &http.Client{Timeout: 10 * time.Second}
+
+	return &Timenow{
+		HttpClient: httpClient,
+	}
+}
+
+func (t *Timenow) Execute() (string, error) {
+	resp, err := t.HttpClient.Get(apiEndpoint)
 
 	if err != nil {
 		err = errors.Wrap(err, "failed to contact API")
