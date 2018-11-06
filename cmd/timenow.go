@@ -8,8 +8,8 @@ import (
 )
 
 func main() {
-	t := timenow.New()
-	// t := &timenow.Timenow{HttpClient: http.DefaultClient}
+	t := timenow.New(nil)
+	// t := timenow.New(http.DefaultClient)
 
 	now, err := t.Execute()
 	if err != nil {

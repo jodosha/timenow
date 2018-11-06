@@ -22,11 +22,15 @@ type timeResponse struct {
 	Now string `json:"currentDateTime,omitempty"`
 }
 
-func New() *Timenow {
-	httpClient := &http.Client{Timeout: 10 * time.Second}
+func New(httpClient *http.Client) *Timenow {
+	hc := httpClient
+
+	if hc == nil {
+		hc = &http.Client{Timeout: 10 * time.Second}
+	}
 
 	return &Timenow{
-		HttpClient: httpClient,
+		HttpClient: hc,
 	}
 }
 
